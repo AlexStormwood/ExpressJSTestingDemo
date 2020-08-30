@@ -1,22 +1,38 @@
+# This directory/directory/file path is automatically detected by Github and will auto-configure itself
+# as soon as you push this into your repository.
+
+# YML or YAML files are their own other programming language. You can google that yourself.
+# Github provides docs about the key stuff relevant to Github Actions when using YML at least.
+# Read that here: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+
+# This name will appear in the "Actions" tab when viewing your repository on the Github website.
 name: Node.js CI
 
+# The event in our Github repository that will trigger the workflow file to run:
 on: [push]
+# Read more about the "on" value here: https://docs.github.com/en/actions/reference/events-that-trigger-workflows
 
+# What is the workflow gonna do?
 jobs:
   build:
-
+    # OS that the action machine will use.
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        # Testing on multiple versions guarantees that your app works for others.
+        # And the "number.x" syntax means that as long as your main number matches,
+        # your patch/minor version number doesn't matter.
+        node-version: [10.x, 12.x] 
 
+    # Specific things you job will do.
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    # These are the important ones -- do you have 'npm test' set up in your package.json?
     - run: npm install
     - run: npm run build --if-present
     - run: npm test
