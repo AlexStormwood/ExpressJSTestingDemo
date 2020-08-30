@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
-    "test": "jest",
+    "test": "jest --no-cache  --detectOpenHandles --runInBand --forceExit",
     "start-dev": "nodemon server/index.js"
   },
   "author": "",

@@ -1,11 +1,11 @@
 const express = require('express');
-const { pickRandomFromArray, pickRandomRepeatedly } = require('./TrackingRandomPicks');
-const { response } = require('express');
 const app = express();
-const port = 3000;
 bodyParser = require('body-parser');
-
+const port = 3000;
 app.use(express.json());
+
+const { pickRandomFromArray, pickRandomRepeatedly } = require('./TrackingRandomPicks');
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -48,8 +48,8 @@ app.post('/PickRandomFromData/:count', verifyPostHasArray(), (req,res) => {
     }
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+const server = app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
 });
 
-module.exports = app;
+module.exports = {server, app};
